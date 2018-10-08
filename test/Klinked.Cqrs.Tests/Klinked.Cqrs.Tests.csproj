@@ -17,6 +17,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Klinked.Cqrs.Logging\Klinked.Cqrs.Logging.csproj" />
+      <ProjectReference Include="..\..\src\Klinked.Cqrs.Retry\Klinked.Cqrs.Retry.csproj" />
       <ProjectReference Include="..\..\src\Klinked.Cqrs\Klinked.Cqrs.csproj" />
       <ProjectReference Include="..\Klinked.Testing.Utilities\Klinked.Testing.Utilities.csproj" />
     </ItemGroup>

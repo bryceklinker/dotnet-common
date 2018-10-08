@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klinked.Gherkin", "src\Klin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klinked.Gherkin.Sample", "samples\Klinked.Gherkin.Sample\Klinked.Gherkin.Sample.csproj", "{301FDA9C-2DFE-4582-ABBA-827C8B37E37A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klinked.Cqrs.Retry", "src\Klinked.Cqrs.Retry\Klinked.Cqrs.Retry.csproj", "{57B8D07F-2514-4A34-A7A4-91CB56E19E8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,7 @@ Global
 		{8C52B5A8-F2BD-4AD9-B685-0EA72890931D} = {242BBB5F-F09E-46A8-A2DF-C5155FFD40B0}
 		{5CAD8E26-4B63-4DFB-AD97-B1DFE4CD9F05} = {72FB12D9-0E54-46EF-A20F-1F80F246BF28}
 		{301FDA9C-2DFE-4582-ABBA-827C8B37E37A} = {DA51957C-1C10-4031-AE82-052E7C827A6A}
+		{57B8D07F-2514-4A34-A7A4-91CB56E19E8E} = {72FB12D9-0E54-46EF-A20F-1F80F246BF28}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C8116DAC-31D7-4525-AE03-196FE9BCF746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -102,5 +105,9 @@ Global
 		{301FDA9C-2DFE-4582-ABBA-827C8B37E37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{301FDA9C-2DFE-4582-ABBA-827C8B37E37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{301FDA9C-2DFE-4582-ABBA-827C8B37E37A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B8D07F-2514-4A34-A7A4-91CB56E19E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B8D07F-2514-4A34-A7A4-91CB56E19E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B8D07F-2514-4A34-A7A4-91CB56E19E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B8D07F-2514-4A34-A7A4-91CB56E19E8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
