@@ -7,13 +7,15 @@ variables:
 steps:
 - task: DotNetCoreCLI@2
   inputs:
-    command: test
+    command: custom
+    custom: test
     projects: '**/*.Tests.csproj'
     arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $(buildConfiguration) --logger trx
     
 - task: DotNetCoreCLI@2
   inputs:
-    command: pack
+    command: custom
+    custom: pack
     arguments: --version-suffix beta.$(Build.BuildId) --configuration $(buildConfiguration) --output $(Build.ArtifactsStagingDirectory)
   
 - task: PublishTestResults@2
