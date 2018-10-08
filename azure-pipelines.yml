@@ -8,12 +8,12 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $env:buildConfiguration --logger trx
+    arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $(buildConfiguration) --logger trx
     
 - task: DotNetCoreCLI@2
   inputs:
     command: pack
-    arguments: --version-suffix "beta.$env:BUILD_BUILDID" --configuration $env:buildConfiguration --output $env:BUILD_ARTIFACTSTAGINGDIRECTORY
+    arguments: --version-suffix "beta.$env:BUILD_BUILDID" --configuration $(buildConfiguration) --output $env:BUILD_ARTIFACTSTAGINGDIRECTORY
   
 - task: PublishTestResults@2
   inputs:
