@@ -16,7 +16,7 @@ steps:
   inputs:
     command: custom
     custom: pack
-    arguments: --version-suffix beta.$(Build.BuildId) --configuration $(buildConfiguration) --output $(Build.ArtifactsStagingDirectory)
+    arguments: --version-suffix beta.$(Build.BuildId) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   
 - task: PublishTestResults@2
   inputs:
