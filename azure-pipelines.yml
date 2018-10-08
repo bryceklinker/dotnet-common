@@ -1,0 +1,36 @@
+pool:
+  vmImage: 'VS2017-Win2016'
+  
+variables:
+  buildConfiguration: Release
+  
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $env:buildConfiguration --logger trx
+    
+- task: DotNetCoreCLI@2
+  inputs:
+    command: pack
+    arguments: --version-suffix "beta.$env:BUILD_BUILDID" --configuration $env:buildConfiguration --output $env:BUILD_ARTIFACTSTAGINGDIRECTORY
+  
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**\*.trx'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)\dotnet\test\**\coverage.cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)\dotnet\CoverageReports'
+
+- task: PublishBuildArtifacts@1
+  
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    packagesToPush: '$(Build.ArtifactStagingDirectory)\**\*.nupkg'
+    publishFeedCredentials: 'NuGet Feed'

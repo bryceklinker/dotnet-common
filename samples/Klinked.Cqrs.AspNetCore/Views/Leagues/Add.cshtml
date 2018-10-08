@@ -1,0 +1,15 @@
+@{
+    ViewBag.Title = "Add";
+    Layout = "_Layout";
+}
+
+<h2>Add League</h2>
+
+<form method="post" asp-controller="Leagues" asp-action="Add">
+    <div>
+        <label for="Name">Name</label>
+        <input name="Name" id="Name" type="text"/>
+    </div>
+    
+    <button type="submit">Save</button>
+</form>

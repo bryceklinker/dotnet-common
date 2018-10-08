@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../version.xml" />
+    <Import Project="../../dependencies.xml" />
+    <Import Project="../../package-settings.xml" />
+    <Import Project="../../coverage.xml" />
+    
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Description>
+            A simple library aimed at bringing Gherkin style tests to xUnit. Usage of the library is similar
+            to SpecFlow.
+        </Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="xunit.core" Version="2.3.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="$(MSExtensions)" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,1 @@
+dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.0.0-rc4

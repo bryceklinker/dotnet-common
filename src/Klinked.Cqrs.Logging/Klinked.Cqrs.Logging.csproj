@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../version.xml" />
+    <Import Project="../../dependencies.xml" />
+    <Import Project="../../package-settings.xml" />
+    <Import Project="../../coverage.xml" />
+    
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Description>
+            A logging decorator for the Klinked.Cqrs library that makes it easy to add logging 
+            to all commands, events, and queries.
+        </Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Klinked.Cqrs\Klinked.Cqrs.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="$(MSExtensions)" />
+    </ItemGroup>
+
+</Project>

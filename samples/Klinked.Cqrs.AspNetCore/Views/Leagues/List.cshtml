@@ -1,0 +1,18 @@
+@model Klinked.Cqrs.AspNetCore.Leagues.Models.League[]
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Leagues</h2>
+
+<a asp-controller="Leagues" asp-action="Add">Add League</a>
+
+<ul>
+    @foreach (var league in Model)
+    {
+        <li><a asp-controller="Leagues" asp-action="Detail" asp-route-id="@league.Id">@league.Name</a></li>
+    }    
+</ul>
+

@@ -1,0 +1,5 @@
+<Project>
+    <PropertyGroup>
+        <MSExtensions>2.0.0</MSExtensions>
+    </PropertyGroup>
+</Project>

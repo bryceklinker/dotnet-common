@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../version.xml" />
+    <Import Project="../../coverage.xml" />
+    
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Klinked.Cqrs\Klinked.Cqrs.csproj" />
+    </ItemGroup>
+
+</Project>

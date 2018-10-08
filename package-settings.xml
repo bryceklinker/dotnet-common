@@ -1,0 +1,8 @@
+<Project>
+    <PropertyGroup>
+        <PackageProjectUrl>https://github.com/bryceklinker/common</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/bryceklinker/common</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/bryceklinker/common/blob/master/LICENSE</PackageLicenseUrl>
+        <Authors>Bryce Klinker (bryce.klinker@gmail.com)</Authors>
+    </PropertyGroup>
+</Project>
