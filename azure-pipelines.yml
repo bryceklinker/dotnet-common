@@ -14,7 +14,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: pack
-    arguments: --version-suffix "beta.$(Build.BuildId)" --configuration $(buildConfiguration) --output $(Build.ArtifactsStagingDirectory)
+    arguments: --version-suffix beta.$(Build.BuildId) --configuration $(buildConfiguration) --output $(Build.ArtifactsStagingDirectory)
   
 - task: PublishTestResults@2
   inputs:
