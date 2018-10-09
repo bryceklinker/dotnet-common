@@ -22,7 +22,7 @@ steps:
   inputs:
     command: custom
     custom: reportgenerator
-    arguments: -reports:../*/coverage.cobertura.xml $(Build.SourcesDirectory)\CoverageReports
+    arguments: -reports:../*/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)\CoverageReports
     workingDirectory: '$(Build.SourcesDirectory)\test\Klinked.Cqrs.Tests'
 
 - task: PublishTestResults@2
