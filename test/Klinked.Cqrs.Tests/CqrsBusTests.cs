@@ -4,7 +4,6 @@ using Klinked.Cqrs.Tests.Fakes;
 using Klinked.Cqrs.Tests.Fakes.Commands;
 using Klinked.Cqrs.Tests.Fakes.Events;
 using Klinked.Cqrs.Tests.Fakes.Queries;
-using Klinked.Testing.Utilities;
 using Klinked.Testing.Utilities.Commands;
 using Klinked.Testing.Utilities.Queries;
 using Microsoft.Extensions.DependencyInjection;

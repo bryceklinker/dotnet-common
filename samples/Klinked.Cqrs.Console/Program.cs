@@ -6,8 +6,9 @@ namespace Klinked.Cqrs.Console
     {
         public static void Main(string[] args)
         {
+            var services = new ServiceCollection().AddHttpClient();
             var bus = CqrsBus.UseAssemblyFor<Program>()
-                .UseServices(new ServiceCollection().AddHttpClient())
+                .UseServices(services)
                 .Build();
 
             if (args.Length != 2)

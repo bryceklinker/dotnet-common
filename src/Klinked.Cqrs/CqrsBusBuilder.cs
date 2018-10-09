@@ -18,7 +18,7 @@ namespace Klinked.Cqrs
     internal class CqrsBusBuilder : ICqrsBusBuilder
     {
         private readonly ICqrsOptionsBuilder _optionsBuilder;
-        private readonly IServiceCollection _services;
+        private IServiceCollection _services;
         
         public CqrsBusBuilder(ICqrsOptionsBuilder optionsBuilder)
         {
@@ -52,8 +52,7 @@ namespace Klinked.Cqrs
 
         public ICqrsBusBuilder UseServices(IServiceCollection services)
         {
-            foreach (var descriptor in services)
-                _services.Add(descriptor);
+            _services = services;
             return this;
         }
 

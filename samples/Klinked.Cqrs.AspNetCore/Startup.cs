@@ -1,5 +1,6 @@
 ﻿using Klinked.Cqrs.AspNetCore.Common;
 using Klinked.Cqrs.Logging;
+using Klinked.Cqrs.Retry;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,8 @@ namespace Klinked.Cqrs.AspNetCore
             // Add Setup cqrs for startup assembly
             services.AddKlinkedCqrs(b => b.UseAssemblyFor<Startup>());
             
-            // Add Setup CQRS for startup assembly with logging decorator
-            // services.AddKlinkedCqrs(b => b.UseAssemblyFor<Startup>().AddLogging());
+            // Add Setup CQRS for startup assembly with logging and retry decorator
+            // services.AddKlinkedCqrs(b => b.UseAssemblyFor<Startup>().AddLogging().AddRetry());
             
             services.AddDbContext<FootballContext>(b => b.UseInMemoryDatabase("Football"));
             services.AddMvc();

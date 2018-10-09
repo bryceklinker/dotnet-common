@@ -19,7 +19,7 @@ namespace Klinked.Cqrs.Common
         {
             ICqrsBus bus = new KlinkedCqrsBus(provider);
             var decoratedBus = options.DecoratorFactories
-                .Aggregate(bus, (current, decoratorFactory) => decoratorFactory(current));
+                .Aggregate(bus, (current, factory) => factory(current));
             
             return options.ProviderDecoratorFactories
                 .Aggregate(decoratedBus, (current, factory) => factory(provider, current));
