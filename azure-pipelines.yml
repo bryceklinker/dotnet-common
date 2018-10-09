@@ -17,7 +17,14 @@ steps:
     command: custom
     custom: pack
     arguments: --version-suffix beta.$(Build.BuildId) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-  
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: custom
+    custom: reportgenerator
+    arguments: '-reports:../*/coverage.cobertura.xml' '$(Build.SourcesDirectory)\CoverageReports'
+    workingDirectory: '$(Build.SourcesDirectory)\test\Klinked.Cqrs.Tests'
+
 - task: PublishTestResults@2
   inputs:
     testRunner: VSTest
@@ -26,8 +33,8 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)\dotnet\test\**\coverage.cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)\dotnet\CoverageReports'
+    summaryFileLocation: '$(Build.SourcesDirectory)\test\**\coverage.cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)\CoverageReports'
 
 - task: PublishBuildArtifacts@1
   

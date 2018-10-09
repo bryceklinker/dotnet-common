@@ -8,6 +8,6 @@
     </ItemGroup>
     
     <ItemGroup>
-        <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-rc4" />
+        <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-rc8" />
     </ItemGroup>
 </Project>
