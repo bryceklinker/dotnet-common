@@ -12,7 +12,7 @@ namespace Klinked.Cqrs.Queries
     internal class QueryHandlerFactory : IQueryHandlerFactory
     {
         private readonly IServiceProvider _provider;
-        private readonly DecoratorFactory _decoratorFactory;
+        private readonly IDecoratorFactory _decoratorFactory;
         private readonly Type[] _decorators;
 
         public QueryHandlerFactory(IServiceProvider provider, Type[] decorators)

@@ -14,7 +14,7 @@ namespace Klinked.Cqrs.Events
     internal class EventHandlerFactory : IEventHandlerFactory
     {
         private readonly IServiceProvider _provider;
-        private readonly DecoratorFactory _decoratorFactory;
+        private readonly IDecoratorFactory _decoratorFactory;
         private readonly Type[] _decorators;
 
         public EventHandlerFactory(IServiceProvider provider, Type[] decorators)

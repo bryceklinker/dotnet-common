@@ -13,7 +13,7 @@ namespace Klinked.Cqrs.Commands
     internal class CommandHandlerFactory : ICommandHandlerFactory
     {
         private readonly IServiceProvider _provider;
-        private readonly DecoratorFactory _decoratorFactory;
+        private readonly IDecoratorFactory _decoratorFactory;
         private readonly Type[] _decorators;
 
         public CommandHandlerFactory(IServiceProvider provider, Type[] decorators)

@@ -1,11 +1,17 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Klinked.Cqrs.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Klinked.Cqrs.Common
 {
-    internal class DecoratorFactory
+    internal interface IDecoratorFactory
+    {
+        THandler CreateHandler<THandler>(THandler handler, Type decoratorType);
+    }
+
+    internal class DecoratorFactory : IDecoratorFactory
     {
         private readonly IServiceProvider _provider;
 
@@ -40,9 +46,18 @@ namespace Klinked.Cqrs.Common
 
         private object GetParameterValue<THandler>(Type argParameterType, THandler handler)
         {
-            return argParameterType.IsGenericType && argParameterType.GetGenericTypeDefinition() == typeof(THandler)
+            return IsHandlerType<THandler>(argParameterType)
                 ? handler
                 : _provider.GetRequiredService(argParameterType);
+        }
+
+        private static bool IsHandlerType<THandler>(Type parameterType)
+        {
+            var handlerType = typeof(THandler);
+            if (!handlerType.IsGenericType || !parameterType.IsGenericType)
+                return false;
+
+            return parameterType.GetGenericTypeDefinition() == handlerType.GetGenericTypeDefinition();
         }
     }
 }
