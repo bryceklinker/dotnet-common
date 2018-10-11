@@ -52,7 +52,7 @@ namespace Klinked.Cqrs.Tests
 
             await _bus.Publish(args);
             Assert.Equal(2, args.TimesHandled);
-            Assert.Equal(2, _logger.GetMessages(LogLevel.Information).Length);
+            Assert.Equal(4, _logger.GetMessages(LogLevel.Information).Length);
         }
         
         [Fact]

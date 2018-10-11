@@ -1,3 +1,6 @@
+using Klinked.Cqrs.Logging.Commands;
+using Klinked.Cqrs.Logging.Events;
+using Klinked.Cqrs.Logging.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -7,12 +10,19 @@ namespace Klinked.Cqrs.Logging
     {
         public static ICqrsOptionsBuilder AddLogging(this ICqrsOptionsBuilder builder)
         {
-            return builder.UseDecoratorFactory((p, b) => new LoggingCqrsBus(b, p.GetRequiredService<ILoggerFactory>()));
+            return builder
+                    .UseQueryDecorator(typeof(LoggingQueryHandlerDecorator<,>))
+                    .UseCommandDecorator(typeof(LoggingCommandHandlerDecorator<>))
+                    .UseEventDecorator(typeof(LoggingEventHandlerDecorator<>));
         }
         
         public static ICqrsBusBuilder AddLogging(this ICqrsBusBuilder builder, ILoggerFactory loggerFactory)
         {
-            return builder.UseDecoratorFactory(b => new LoggingCqrsBus(b, loggerFactory));
+            return builder
+                .AddSingleton(loggerFactory)
+                .UseQueryDecorator(typeof(LoggingQueryHandlerDecorator<,>))
+                .UseCommandDecorator(typeof(LoggingCommandHandlerDecorator<>))
+                .UseEventDecorator(typeof(LoggingEventHandlerDecorator<>));
         }
     }
 }

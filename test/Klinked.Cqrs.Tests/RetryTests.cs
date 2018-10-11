@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Klinked.Cqrs.Tests
 {
-    public class RetryTests
+    public class RetryTests : IDisposable
     {
         private readonly ICqrsBus _bus;
 
@@ -48,7 +48,16 @@ namespace Klinked.Cqrs.Tests
             var args = new FakeRetryEventArgs(2);
 
             await _bus.Publish(args);
-            Assert.Equal(3, args.TimesExecuted);
+            Assert.Equal(4, args.NumberOfAttemptsToHandle);
+        }
+
+        [Fact]
+        public async Task ShouldOnlyRetryFailedEvents()
+        {
+            var args = new FakeRetryEventArgs(2);
+
+            await _bus.Publish(args);
+            Assert.Equal(2, args.NumberOfSuccessfulHandles);
         }
 
         [Fact]
@@ -66,25 +75,45 @@ namespace Klinked.Cqrs.Tests
         }
 
         [Fact]
-        public void ShouldWorkCorrectlyWithServiceCollection()
+        public async Task ShouldWorkCorrectlyWithServiceCollection()
         {
             var bus = new ServiceCollection()
                 .AddKlinkedCqrs(b => b.UseAssemblyFor<FakeLogger>().AddRetry())
                 .BuildServiceProvider()
                 .GetRequiredService<ICqrsBus>();
 
-            Assert.NotNull(bus);
+            var args = new FakeRetryCommandArgs(2);
+            await bus.Execute(args);
+            
+            Assert.Equal(3, args.TimesExecuted);
         }
 
         [Fact]
-        public void ShouldWorkCorrectlyWithCustomPolicyAndServiceCollection()
+        public async Task ShouldWorkCorrectlyWithCustomPolicyAndServiceCollection()
         {
             var bus = new ServiceCollection()
                 .AddKlinkedCqrs(b => b.UseAssemblyFor<FakeLogger>().AddRetry(Policy.Handle<Exception>().RetryAsync(12)))
                 .BuildServiceProvider()
                 .GetRequiredService<ICqrsBus>();
 
-            Assert.NotNull(bus);
+            var args = new FakeRetryCommandArgs(11);
+            await bus.Execute(args);
+            
+            Assert.Equal(12, args.TimesExecuted);
+        }
+
+        [Fact]
+        public async Task ShouldThrowExceptionIfRetriesExceeded()
+        {
+            var bus = CqrsBus.UseAssemblyFor<FakeLogger>().AddRetry().Build();
+
+            var args = new FakeRetryCommandArgs(4);
+            await Assert.ThrowsAsync<Exception>(() => _bus.Execute(args));
+        }
+        
+        public void Dispose()
+        {
+            FakeRetryFailuresEventHandler.TimesHandled = 0;
         }
     }
 }

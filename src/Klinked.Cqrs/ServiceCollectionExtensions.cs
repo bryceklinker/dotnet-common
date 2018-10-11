@@ -8,7 +8,7 @@ namespace Klinked.Cqrs
     {
         public static IServiceCollection AddKlinkedCqrs(this IServiceCollection services, Action<ICqrsOptionsBuilder> configureBuilder)
         {
-            var builder = new CqrsOptionsBuilder();
+            var builder = new CqrsOptionsBuilder(services);
             configureBuilder(builder);
             return services.AddCqrs(builder.Build());
         }

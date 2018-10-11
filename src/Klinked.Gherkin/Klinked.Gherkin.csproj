@@ -3,6 +3,7 @@
     <Import Project="../../dependencies.xml" />
     <Import Project="../../package-settings.xml" />
     <Import Project="../../coverage.xml" />
+    <Import Project="../../code-metrics.xml" />
     
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>

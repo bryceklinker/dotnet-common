@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <Import Project="../../version.xml" />
     <Import Project="../../coverage.xml" />
+    <Import Project="../../code-metrics.xml" />
     
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>

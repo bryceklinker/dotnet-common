@@ -1,4 +1,7 @@
 using System;
+using Klinked.Cqrs.Commands;
+using Klinked.Cqrs.Events;
+using Klinked.Cqrs.Queries;
 
 namespace Klinked.Cqrs.Common
 {

@@ -9,28 +9,32 @@ namespace Klinked.Cqrs
 {
     internal class KlinkedCqrsBus : ICqrsBus
     {
-        private readonly IServiceProvider _provider;
-
-        public KlinkedCqrsBus(IServiceProvider provider)
+        private readonly IQueryHandlerFactory _queryHandlerFactory;
+        private readonly ICommandHandlerFactory _commandHandlerFactory;
+        private readonly IEventHandlerFactory _eventHandlerFactory;
+        
+        public KlinkedCqrsBus(IServiceProvider provider, CqrsOptions options)
         {
-            _provider = provider;
+            _queryHandlerFactory = new QueryHandlerFactory(provider, options.QueryDecorators);
+            _commandHandlerFactory = new CommandHandlerFactory(provider, options.CommandDecorators);
+            _eventHandlerFactory = new EventHandlerFactory(provider, options.EventDecorators);
         }
 
         public async Task Execute<TCommandArgs>(TCommandArgs args)
         {
-            var handler = _provider.GetRequiredService<ICommandHandler<TCommandArgs>>();
+            var handler = _commandHandlerFactory.Create<TCommandArgs>();
             await handler.Execute(args).ConfigureAwait(false);
         }
 
         public async Task<TResult> Execute<TArgs, TResult>(TArgs args)
         {
-            var handler = _provider.GetRequiredService<IQueryHandler<TArgs, TResult>>();
+            var handler = _queryHandlerFactory.Create<TArgs, TResult>();
             return await handler.Execute(args).ConfigureAwait(false);
         }
 
         public async Task Publish<TArgs>(TArgs args)
         {
-            var handlers = _provider.GetServices<IEventHandler<TArgs>>();
+            var handlers = _eventHandlerFactory.Create<TArgs>();
             foreach (var handler in handlers)
                 await handler.Handle(args);
         }

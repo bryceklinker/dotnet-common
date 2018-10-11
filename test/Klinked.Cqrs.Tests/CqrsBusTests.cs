@@ -143,10 +143,8 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldAllowExternalServicesToBeProvided()
         {
             var instance = new SomeService();
-            var services = new ServiceCollection()
-                .AddSingleton<ISomeService>(instance);
             var bus = CqrsBus.UseAssemblyFor<FakeCommandWithServiceArgs>()
-                .UseServices(services)
+                .AddSingleton<ISomeService>(instance)
                 .Build();
             
             var args = new FakeCommandWithServiceArgs();

@@ -1,0 +1,26 @@
+using System.Threading.Tasks;
+using Klinked.Cqrs.Commands;
+using Klinked.Cqrs.Retry.Common;
+using Polly.Retry;
+
+namespace Klinked.Cqrs.Retry.Commands
+{
+    internal class RetryCommandHandlerDecorator<TArgs> : ICommandHandler<TArgs>
+    {
+        private readonly ICommandHandler<TArgs> _handler;
+        private readonly RetryPolicy _retryPolicy;
+
+        public RetryCommandHandlerDecorator(ICommandHandler<TArgs> handler, ICqrsRetryOptions options)
+        {
+            _handler = handler;
+            _retryPolicy = options.RetryPolicy;
+        }
+
+        public async Task Execute(TArgs args)
+        {
+            await _retryPolicy
+                .ExecuteAsync(async () => await _handler.Execute(args).ConfigureAwait(false))
+                .ConfigureAwait(false);
+        }
+    }
+}

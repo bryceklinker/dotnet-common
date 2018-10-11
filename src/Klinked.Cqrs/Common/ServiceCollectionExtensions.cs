@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Klinked.Cqrs.Common
@@ -11,18 +9,7 @@ namespace Klinked.Cqrs.Common
             var locator = new RegistrationLocator();
             foreach (var registration in locator.GetRegistrations(options.Assemblies))
                 services.AddTransient(registration.InterfaceType, registration.ImplementationType);
-            services.AddTransient(p => CreateBus(p, options));
-            return services;
-        }
-
-        private static ICqrsBus CreateBus(IServiceProvider provider, CqrsOptions options)
-        {
-            ICqrsBus bus = new KlinkedCqrsBus(provider);
-            var decoratedBus = options.DecoratorFactories
-                .Aggregate(bus, (current, factory) => factory(current));
-            
-            return options.ProviderDecoratorFactories
-                .Aggregate(decoratedBus, (current, factory) => factory(provider, current));
+            return services.AddTransient<ICqrsBus>(p => new KlinkedCqrsBus(p, options));
         }
     }
 }

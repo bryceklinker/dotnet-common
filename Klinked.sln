@@ -27,6 +27,7 @@ ProjectSection(SolutionItems) = preProject
 	package-settings.xml = package-settings.xml
 	coverage.xml = coverage.xml
 	azure-pipelines.yml = azure-pipelines.yml
+	code-metrics.xml = code-metrics.xml
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{DA51957C-1C10-4031-AE82-052E7C827A6A}"

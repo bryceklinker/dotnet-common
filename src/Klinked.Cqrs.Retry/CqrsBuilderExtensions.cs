@@ -1,4 +1,9 @@
 using System;
+using Klinked.Cqrs.Retry.Commands;
+using Klinked.Cqrs.Retry.Common;
+using Klinked.Cqrs.Retry.Events;
+using Klinked.Cqrs.Retry.Queries;
+using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Retry;
 
@@ -13,19 +18,27 @@ namespace Klinked.Cqrs.Retry
             return builder.AddRetry(DefaultRetryPolicy);
         }
 
-        public static ICqrsBusBuilder AddRetry(this ICqrsBusBuilder builder, RetryPolicy policy)
-        {
-            return builder.UseDecoratorFactory(bus => new RetryCqrsBus(bus, policy));
-        }
-
         public static ICqrsOptionsBuilder AddRetry(this ICqrsOptionsBuilder builder)
         {
             return builder.AddRetry(DefaultRetryPolicy);
         }
-        
+
+        public static ICqrsBusBuilder AddRetry(this ICqrsBusBuilder builder, RetryPolicy policy)
+        {
+            return builder
+                .AddSingleton<ICqrsRetryOptions>(new CqrsRetryOptions(policy))
+                .UseCommandDecorator(typeof(RetryCommandHandlerDecorator<>))
+                .UseEventDecorator(typeof(RetryEventHandlerDecorator<>))
+                .UseQueryDecorator(typeof(RetryQueryHandlerDecorator<,>));
+        }
+
         public static ICqrsOptionsBuilder AddRetry(this ICqrsOptionsBuilder builder, RetryPolicy policy)
         {
-            return builder.UseDecoratorFactory(bus => new RetryCqrsBus(bus, policy));
+            return builder
+                .AddSingleton<ICqrsRetryOptions>(new CqrsRetryOptions(policy))
+                .UseCommandDecorator(typeof(RetryCommandHandlerDecorator<>))
+                .UseEventDecorator(typeof(RetryEventHandlerDecorator<>))
+                .UseQueryDecorator(typeof(RetryQueryHandlerDecorator<,>));
         }
     }
 }

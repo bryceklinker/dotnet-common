@@ -9,21 +9,24 @@ namespace Klinked.Cqrs
     {
         ICqrsBusBuilder UseAssemblyFor<T>();
         ICqrsBusBuilder UseAssembly(Assembly assembly);
-        ICqrsBusBuilder UseDecoratorFactory(Func<ICqrsBus, ICqrsBus> decoratorFactory);
-        ICqrsBusBuilder UseDecoratorFactory(Func<IServiceProvider, ICqrsBus, ICqrsBus> providerDecoratorFactory);
-        ICqrsBusBuilder UseServices(IServiceCollection services);
+        ICqrsBusBuilder UseQueryDecorator(Type decoratorType);
+        ICqrsBusBuilder UseCommandDecorator(Type decoratorType);
+        ICqrsBusBuilder UseEventDecorator(Type decoratorType);
+        ICqrsBusBuilder AddTransient<TService, TImplementation>()
+            where TService : class 
+            where TImplementation : class, TService;
+        ICqrsBusBuilder AddSingleton<TService>(TService instance)
+            where TService : class ;
         ICqrsBus Build();
     }
 
     internal class CqrsBusBuilder : ICqrsBusBuilder
     {
         private readonly ICqrsOptionsBuilder _optionsBuilder;
-        private IServiceCollection _services;
         
         public CqrsBusBuilder(ICqrsOptionsBuilder optionsBuilder)
         {
             _optionsBuilder = optionsBuilder;
-            _services = new ServiceCollection();
         }
 
         public ICqrsBusBuilder UseAssemblyFor<T>()
@@ -38,28 +41,43 @@ namespace Klinked.Cqrs
             return this;
         }
 
-        public ICqrsBusBuilder UseDecoratorFactory(Func<ICqrsBus, ICqrsBus> decoratorFactory)
+        public ICqrsBusBuilder UseQueryDecorator(Type decoratorType)
         {
-            _optionsBuilder.UseDecoratorFactory(decoratorFactory);
+            _optionsBuilder.UseQueryDecorator(decoratorType);
             return this;
         }
 
-        public ICqrsBusBuilder UseDecoratorFactory(Func<IServiceProvider, ICqrsBus, ICqrsBus> providerDecoratorFactory)
+        public ICqrsBusBuilder UseCommandDecorator(Type decoratorType)
         {
-            _optionsBuilder.UseDecoratorFactory(providerDecoratorFactory);
+            _optionsBuilder.UseCommandDecorator(decoratorType);
             return this;
         }
 
-        public ICqrsBusBuilder UseServices(IServiceCollection services)
+        public ICqrsBusBuilder UseEventDecorator(Type decoratorType)
         {
-            _services = services;
+            _optionsBuilder.UseEventDecorator(decoratorType);
+            return this;
+        }
+
+        public ICqrsBusBuilder AddTransient<TService, TImplementation>()
+            where TService : class 
+            where TImplementation : class, TService
+        {
+            _optionsBuilder.AddTransient<TService, TImplementation>();
+            return this;
+        }
+
+        public ICqrsBusBuilder AddSingleton<TService>(TService instance)
+            where TService : class
+        {
+            _optionsBuilder.AddSingleton(instance);
             return this;
         }
 
         public ICqrsBus Build()
         {
             var options = _optionsBuilder.Build();
-            return _services
+            return options.Services
                 .AddCqrs(options)
                 .BuildServiceProvider()
                 .GetRequiredService<ICqrsBus>();
