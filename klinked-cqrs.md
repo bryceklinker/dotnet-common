@@ -43,8 +43,7 @@ class Program
         var services = new ServiceCollection()
             .AddHttpClient();
             
-        var advanced = CqrsBus.UseAssemblyFor<Program>()
-                        .UseServices(services)
+        var advanced = CqrsBus.UseAssemblyFor<Program>(services)
                         .Build();
         
     }
