@@ -7,6 +7,12 @@
     
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <Description>
+            A retry decorator for the Klinked.Cqrs library that makes it easy to add retry logic
+            to all commands, events, and queries.
+            
+            This library allows you to specify a retry policy using Polly.
+        </Description>
     </PropertyGroup>
 
     <ItemGroup>

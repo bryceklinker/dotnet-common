@@ -36,7 +36,7 @@ namespace Klinked.Cqrs
         {
             var handlers = _eventHandlerFactory.Create<TArgs>();
             foreach (var handler in handlers)
-                await handler.Handle(args);
+                await handler.Handle(args).ConfigureAwait(false);
         }
     }
 }
