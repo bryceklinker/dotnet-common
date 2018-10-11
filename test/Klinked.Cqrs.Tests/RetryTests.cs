@@ -105,8 +105,6 @@ namespace Klinked.Cqrs.Tests
         [Fact]
         public async Task ShouldThrowExceptionIfRetriesExceeded()
         {
-            var bus = CqrsBus.UseAssemblyFor<FakeLogger>().AddRetry().Build();
-
             var args = new FakeRetryCommandArgs(4);
             await Assert.ThrowsAsync<Exception>(() => _bus.Execute(args));
         }
