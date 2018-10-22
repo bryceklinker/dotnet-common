@@ -17,6 +17,14 @@ steps:
     command: custom
     custom: pack
     arguments: --version-suffix beta.$(Build.BuildId) --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    enabled: $(IS_PRERELEASE)
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: custom
+    custom: pack
+    arguments: --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    enabled: $(IS_RELEASE)
 
 - task: DotNetCoreCLI@2
   inputs:
