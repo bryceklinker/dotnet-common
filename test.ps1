@@ -1,5 +1,3 @@
-pushd ./dotnet
-
 $hasErrors = $false
 $lastDirectory=""
 $directories = (Get-ChildItem -Path test -Directory);
@@ -20,8 +18,6 @@ foreach ($directory in $directories)
     popd
     $lastDirectory = $directory.FullName
 }
-popd
-
 
 pushd $lastDirectory
 
