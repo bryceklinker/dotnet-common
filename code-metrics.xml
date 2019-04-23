@@ -1,5 +1,5 @@
 <Project>
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.6.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.2" />
     </ItemGroup>
 </Project>
