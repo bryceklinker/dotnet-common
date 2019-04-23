@@ -16,10 +16,10 @@ namespace Klinked.Cqrs.Retry.Events
             _retryPolicy = options.RetryPolicy;
         }
 
-        public async  Task Handle(TArgs args)
+        public async  Task HandleAsync(TArgs args)
         {
             await _retryPolicy
-                .ExecuteAsync(async () => await _handler.Handle(args).ConfigureAwait(false))
+                .ExecuteAsync(async () => await _handler.HandleAsync(args).ConfigureAwait(false))
                 .ConfigureAwait(false);
         }
     }

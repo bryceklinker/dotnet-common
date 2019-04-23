@@ -10,7 +10,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Commands
     
     public class FakeCommandHandler : ICommandHandler<FakeCommandArgs>
     {
-        public Task Execute(FakeCommandArgs args)
+        public Task ExecuteAsync(FakeCommandArgs args)
         {
             args.DidExecute = true;
             return Task.CompletedTask;

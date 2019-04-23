@@ -16,11 +16,11 @@ namespace Klinked.Cqrs.Logging.Queries
             _logger = loggerFactory.CreateLogger<LoggingQueryHandlerDecorator<TArgs, TResult>>();
         }
 
-        public async Task<TResult> Execute(TArgs args)
+        public async Task<TResult> ExecuteAsync(TArgs args)
         {
             var name = ArgumentsNameResolver.GetName<TArgs>();
             _logger.LogInformation($"Executing {name} query...");
-            var result = await _handler.Execute(args).ConfigureAwait(false);
+            var result = await _handler.ExecuteAsync(args).ConfigureAwait(false);
             _logger.LogInformation($"Executed {name} query.");
             return result;
         }

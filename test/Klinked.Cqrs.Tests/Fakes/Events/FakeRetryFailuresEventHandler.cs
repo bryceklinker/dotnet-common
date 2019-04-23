@@ -28,7 +28,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Events
 
     public class FakeRetryWorkingEventHandler : IEventHandler<FakeRetryEventArgs>
     {
-        public Task Handle(FakeRetryEventArgs args)
+        public Task HandleAsync(FakeRetryEventArgs args)
         {
             args.Attempt();
             args.Handled();
@@ -40,7 +40,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Events
     {
         public static int TimesHandled = 0;
         
-        public Task Handle(FakeRetryEventArgs args)
+        public Task HandleAsync(FakeRetryEventArgs args)
         {
             args.Attempt();
             if (args.NumberOfTimesToFail > TimesHandled++)

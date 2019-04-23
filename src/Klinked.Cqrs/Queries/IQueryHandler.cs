@@ -4,6 +4,6 @@ namespace Klinked.Cqrs.Queries
 {
     public interface IQueryHandler<in TArgs, TResult>
     {
-        Task<TResult> Execute(TArgs args);
+        Task<TResult> ExecuteAsync(TArgs args);
     }
 }

@@ -4,6 +4,6 @@ namespace Klinked.Cqrs.Events
 {
     public interface IEventHandler<in TArgs>
     {
-        Task Handle(TArgs args);
+        Task HandleAsync(TArgs args);
     }
 }

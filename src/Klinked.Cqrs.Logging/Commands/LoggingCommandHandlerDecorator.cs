@@ -16,11 +16,11 @@ namespace Klinked.Cqrs.Logging.Commands
             _logger = loggerFactory.CreateLogger<LoggingCommandHandlerDecorator<TArgs>>();
         }
 
-        public async Task Execute(TArgs args)
+        public async Task ExecuteAsync(TArgs args)
         {
             var commandName = ArgumentsNameResolver.GetName<TArgs>();
             _logger.LogInformation($"Executing {commandName} command...");
-            await _handler.Execute(args).ConfigureAwait(false);
+            await _handler.ExecuteAsync(args).ConfigureAwait(false);
             _logger.LogInformation($"Executed {commandName} command.");
         }
     }

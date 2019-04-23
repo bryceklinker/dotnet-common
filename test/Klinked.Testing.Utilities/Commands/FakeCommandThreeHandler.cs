@@ -10,7 +10,7 @@ namespace Klinked.Testing.Utilities.Commands
     
     public class FakeCommandThreeHandler : ICommandHandler<FakeCommandThreeArgs>
     {
-        public Task Execute(FakeCommandThreeArgs args)
+        public Task ExecuteAsync(FakeCommandThreeArgs args)
         {
             args.DidExecute = true;
             return Task.CompletedTask;

@@ -15,7 +15,7 @@ namespace Klinked.Testing.Utilities.Queries
     
     public class FakeQueryThreeHandler : IQueryHandler<FakeQueryThreeArgs, byte[]>
     {
-        public Task<byte[]> Execute(FakeQueryThreeArgs args)
+        public Task<byte[]> ExecuteAsync(FakeQueryThreeArgs args)
         {
             return Task.FromResult(args.Result);
         }

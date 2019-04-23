@@ -26,7 +26,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Queries
 
     public class FakeRetryQueryHandler : IQueryHandler<FakeRetryQueryArgs, int[]>
     {
-        public Task<int[]> Execute(FakeRetryQueryArgs queryArgs)
+        public Task<int[]> ExecuteAsync(FakeRetryQueryArgs queryArgs)
         {
             if (queryArgs.ShouldFail())
                 throw new Exception();

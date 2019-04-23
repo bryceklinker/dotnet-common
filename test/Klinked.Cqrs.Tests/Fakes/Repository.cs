@@ -18,12 +18,12 @@ namespace Klinked.Cqrs.Tests.Fakes
 
         public static Model[] Models => _models.ToArray();
 
-        public Task<Model> Execute(Guid args)
+        public Task<Model> ExecuteAsync(Guid args)
         {
             return Task.FromResult(Models.SingleOrDefault(m => m.Id == args));
         }
 
-        public Task Execute(Model args)
+        public Task ExecuteAsync(Model args)
         {
             _models.Add(args);
             return Task.CompletedTask;

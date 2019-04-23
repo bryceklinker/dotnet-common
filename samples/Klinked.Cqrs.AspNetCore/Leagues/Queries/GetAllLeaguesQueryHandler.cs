@@ -19,7 +19,7 @@ namespace Klinked.Cqrs.AspNetCore.Leagues.Queries
             _context = context;
         }
 
-        public async Task<League[]> Execute(GetAllLeaguesQueryArgs args)
+        public async Task<League[]> ExecuteAsync(GetAllLeaguesQueryArgs args)
         {
             return await _context.Leagues.ToArrayAsync();
         }

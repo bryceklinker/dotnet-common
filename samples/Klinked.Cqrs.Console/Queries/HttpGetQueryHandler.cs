@@ -16,7 +16,7 @@ namespace Klinked.Cqrs.Console.Queries
         }
 
 
-        public async Task<string> Execute(string args)
+        public async Task<string> ExecuteAsync(string args)
         {
             using (var client = _clientFactory.CreateClient())
             {

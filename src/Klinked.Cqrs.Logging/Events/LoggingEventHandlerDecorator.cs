@@ -16,11 +16,11 @@ namespace Klinked.Cqrs.Logging.Events
             _logger = loggerFactory.CreateLogger<IEventHandler<TArgs>>();
         }
 
-        public async Task Handle(TArgs args)
+        public async Task HandleAsync(TArgs args)
         {
             var eventName = ArgumentsNameResolver.GetName<TArgs>();
             _logger.LogInformation($"Publishing {eventName} event...");
-            await _handler.Handle(args).ConfigureAwait(false);
+            await _handler.HandleAsync(args).ConfigureAwait(false);
             _logger.LogInformation($"Published {eventName} event.");
         }
     }

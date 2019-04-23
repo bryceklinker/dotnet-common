@@ -15,7 +15,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Queries
     
     public class FakeQueryHandler : IQueryHandler<FakeQueryArgs, int[]>
     {
-        public Task<int[]> Execute(FakeQueryArgs args)
+        public Task<int[]> ExecuteAsync(FakeQueryArgs args)
         {
             return Task.FromResult(args.Result);
         }

@@ -25,7 +25,7 @@ namespace Klinked.Cqrs.AspNetCore.Leagues.Commands
             _context = context;
         }
 
-        public async Task Execute(AddLeagueCommandArgs args)
+        public async Task ExecuteAsync(AddLeagueCommandArgs args)
         {
             var entry = _context.Add(new League {Name = args.Name});
             await _context.SaveChangesAsync();

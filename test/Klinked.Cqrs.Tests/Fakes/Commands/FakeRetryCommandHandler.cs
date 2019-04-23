@@ -23,7 +23,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Commands
     
     public class FakeRetryCommandHandler : ICommandHandler<FakeRetryCommandArgs>
     {
-        public Task Execute(FakeRetryCommandArgs args)
+        public Task ExecuteAsync(FakeRetryCommandArgs args)
         {
             if (args.ShouldFail())
                 throw new Exception();

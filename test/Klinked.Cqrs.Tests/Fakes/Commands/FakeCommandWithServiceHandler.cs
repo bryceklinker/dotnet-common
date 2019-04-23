@@ -18,7 +18,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Commands
             _service = service;
         }
 
-        public Task Execute(FakeCommandWithServiceArgs args)
+        public Task ExecuteAsync(FakeCommandWithServiceArgs args)
         {
             args.Service = _service;
             args.DidExecute = true;

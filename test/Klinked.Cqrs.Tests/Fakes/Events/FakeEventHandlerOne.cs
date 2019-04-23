@@ -10,7 +10,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Events
     
     public class FakeEventHandlerOne : IEventHandler<FakeEventArgs>
     {
-        public Task Handle(FakeEventArgs args)
+        public Task HandleAsync(FakeEventArgs args)
         {
             args.TimesHandled++;
             return Task.CompletedTask;
@@ -19,7 +19,7 @@ namespace Klinked.Cqrs.Tests.Fakes.Events
     
     public class FakeEventHandlerTwo : IEventHandler<FakeEventArgs>
     {
-        public Task Handle(FakeEventArgs args)
+        public Task HandleAsync(FakeEventArgs args)
         {
             args.TimesHandled++;
             return Task.CompletedTask;
