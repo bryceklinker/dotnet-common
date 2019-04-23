@@ -28,7 +28,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeRetryQueryArgs(2, new []{4,3});
             
-            var result = await _bus.Execute<FakeRetryQueryArgs, int[]>(args);
+            var result = await _bus.ExecuteAsync<FakeRetryQueryArgs, int[]>(args);
             Assert.Equal(args.Result, result);
             Assert.Equal(3, args.TimesExecuted);
         }
@@ -38,7 +38,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeRetryCommandArgs(2);
 
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             Assert.Equal(3, args.TimesExecuted);
         }
 
@@ -47,7 +47,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeRetryEventArgs(2);
 
-            await _bus.Publish(args);
+            await _bus.PublishAsync(args);
             Assert.Equal(4, args.NumberOfAttemptsToHandle);
         }
 
@@ -56,7 +56,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeRetryEventArgs(2);
 
-            await _bus.Publish(args);
+            await _bus.PublishAsync(args);
             Assert.Equal(2, args.NumberOfSuccessfulHandles);
         }
 
@@ -69,7 +69,7 @@ namespace Klinked.Cqrs.Tests
                 .Build();
 
             var args = new FakeRetryCommandArgs(11);
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
 
             Assert.Equal(12, args.TimesExecuted);
         }
@@ -83,7 +83,7 @@ namespace Klinked.Cqrs.Tests
                 .GetRequiredService<ICqrsBus>();
 
             var args = new FakeRetryCommandArgs(2);
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
             
             Assert.Equal(3, args.TimesExecuted);
         }
@@ -97,7 +97,7 @@ namespace Klinked.Cqrs.Tests
                 .GetRequiredService<ICqrsBus>();
 
             var args = new FakeRetryCommandArgs(11);
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
             
             Assert.Equal(12, args.TimesExecuted);
         }
@@ -106,7 +106,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldThrowExceptionIfRetriesExceeded()
         {
             var args = new FakeRetryCommandArgs(4);
-            await Assert.ThrowsAsync<Exception>(() => _bus.Execute(args));
+            await Assert.ThrowsAsync<Exception>(() => _bus.ExecuteAsync(args));
         }
         
         public void Dispose()

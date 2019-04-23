@@ -19,14 +19,14 @@ namespace Klinked.Cqrs.AspNetCore.Controllers
         [HttpGet]
         public async Task<ActionResult> List()
         {
-            var leagues = await _bus.Execute<GetAllLeaguesQueryArgs, League[]>(new GetAllLeaguesQueryArgs());
+            var leagues = await _bus.ExecuteAsync<GetAllLeaguesQueryArgs, League[]>(new GetAllLeaguesQueryArgs());
             return View("List", leagues);
         }
 
         [HttpGet("detail/{id:int}")]
         public async Task<ActionResult> Detail(int id)
         {
-            var league = await _bus.Execute<GetLeagueByIdQueryArgs, League>(new GetLeagueByIdQueryArgs(id));
+            var league = await _bus.ExecuteAsync<GetLeagueByIdQueryArgs, League>(new GetLeagueByIdQueryArgs(id));
             return View("Detail", league);
         }
 
@@ -40,7 +40,7 @@ namespace Klinked.Cqrs.AspNetCore.Controllers
         public async Task<ActionResult> Add([FromForm] League league)
         {
             var args = new AddLeagueCommandArgs(league.Name);
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             return RedirectToAction("Detail", new {id = args.Id});
         }
     }

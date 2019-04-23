@@ -26,7 +26,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldExecuteCommand()
         {
             var args = new FakeCommandArgs();
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             Assert.True(args.DidExecute);
         }
         
@@ -34,7 +34,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldExecuteCommandForDifferentCommandInTheSameAssembly()
         {
             var args = new FakeCommandTwoArgs();
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             Assert.True(args.DidExecute);
         }
         
@@ -42,7 +42,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldExecuteCommandFromADifferentAssembly()
         {
             var args = new FakeCommandThreeArgs();
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             Assert.True(args.DidExecute);
         }
 
@@ -51,7 +51,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new Model {Id = Guid.NewGuid()};
 
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             Assert.Contains(args, Repository.Models);
         }
 
@@ -59,7 +59,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldReturnQueryResults()
         {
             var args = new FakeQueryArgs(new[] {4, 6, 8});
-            var actual = await _bus.Execute<FakeQueryArgs, int[]>(args);
+            var actual = await _bus.ExecuteAsync<FakeQueryArgs, int[]>(args);
             Assert.Equal(args.Result, actual);
         }
 
@@ -68,7 +68,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeQueryTwoArgs(Guid.NewGuid());
 
-            var actual = await _bus.Execute<FakeQueryTwoArgs, Guid>(args);
+            var actual = await _bus.ExecuteAsync<FakeQueryTwoArgs, Guid>(args);
             Assert.Equal(args.Result, actual);
         }
 
@@ -77,7 +77,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeQueryThreeArgs(Guid.NewGuid().ToByteArray());
 
-            var actual = await _bus.Execute<FakeQueryThreeArgs, byte[]>(args);
+            var actual = await _bus.ExecuteAsync<FakeQueryThreeArgs, byte[]>(args);
             Assert.Equal(args.Result, actual);
         }
         
@@ -85,9 +85,9 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldReturnQueryResultsWhenClassImplementsQueryAndCommand()
         {
             var model = new Model {Id = Guid.NewGuid()};
-            await _bus.Execute(model);
+            await _bus.ExecuteAsync(model);
 
-            var actual = await _bus.Execute<Guid, Model>(model.Id);
+            var actual = await _bus.ExecuteAsync<Guid, Model>(model.Id);
             Assert.Equal(model, actual);
         }
 
@@ -95,7 +95,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldPublishEventToAllHandlers()
         {
             var args = new FakeEventArgs();
-            await _bus.Publish(args);
+            await _bus.PublishAsync(args);
 
             Assert.Equal(2, args.TimesHandled);
         }
@@ -106,7 +106,7 @@ namespace Klinked.Cqrs.Tests
             var bus = CqrsBus.UseAssembly(typeof(FakeCommandArgs).Assembly).Build();
             
             var args = new FakeCommandArgs();
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
             Assert.True(args.DidExecute);
         }
         
@@ -123,7 +123,7 @@ namespace Klinked.Cqrs.Tests
             
             var args = new FakeCommandThreeArgs();
 
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
             Assert.True(args.DidExecute);
         }
         
@@ -135,7 +135,7 @@ namespace Klinked.Cqrs.Tests
 
             var args = new FakeCommandArgs();
 
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
             Assert.True(args.DidExecute);
         }
         
@@ -148,7 +148,7 @@ namespace Klinked.Cqrs.Tests
                 .Build();
             
             var args = new FakeCommandWithServiceArgs();
-            await bus.Execute(args);
+            await bus.ExecuteAsync(args);
             Assert.Equal(instance, args.Service);
             Assert.True(args.DidExecute);
         }

@@ -20,19 +20,19 @@ namespace Klinked.Cqrs
             _eventHandlerFactory = new EventHandlerFactory(provider, options.EventDecorators);
         }
 
-        public async Task Execute<TCommandArgs>(TCommandArgs args)
+        public async Task ExecuteAsync<TCommandArgs>(TCommandArgs args)
         {
             var handler = _commandHandlerFactory.Create<TCommandArgs>();
             await handler.ExecuteAsync(args).ConfigureAwait(false);
         }
 
-        public async Task<TResult> Execute<TArgs, TResult>(TArgs args)
+        public async Task<TResult> ExecuteAsync<TArgs, TResult>(TArgs args)
         {
             var handler = _queryHandlerFactory.Create<TArgs, TResult>();
             return await handler.ExecuteAsync(args).ConfigureAwait(false);
         }
 
-        public async Task Publish<TArgs>(TArgs args)
+        public async Task PublishAsync<TArgs>(TArgs args)
         {
             var handlers = _eventHandlerFactory.Create<TArgs>();
             foreach (var handler in handlers)

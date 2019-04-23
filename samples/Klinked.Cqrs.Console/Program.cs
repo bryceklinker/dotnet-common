@@ -16,7 +16,7 @@ namespace Klinked.Cqrs.Console
 
             if (args[0].ToLowerInvariant() == "get")
             {
-                var content = bus.Execute<string, string>(args[1]).Result;
+                var content = bus.ExecuteAsync<string, string>(args[1]).Result;
                 System.Console.WriteLine(content);
             }
         }

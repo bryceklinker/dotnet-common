@@ -30,7 +30,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldUseRetryAndLoggingQueryDecorators()
         {
             var args = new FakeRetryQueryArgs(2, new int[0]);
-            await _bus.Execute<FakeRetryQueryArgs, int[]>(args);
+            await _bus.ExecuteAsync<FakeRetryQueryArgs, int[]>(args);
             Assert.Equal(3, args.TimesExecuted);
             Assert.Equal(4, _logger.GetMessages(LogLevel.Information).Length);
         }
@@ -39,7 +39,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldUseRetryAndLoggingCommandDecorators()
         {
             var args = new FakeRetryCommandArgs(2);
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             Assert.Equal(3, args.TimesExecuted);
             Assert.Equal(4, _logger.GetMessages(LogLevel.Information).Length);
         }
@@ -48,7 +48,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldUseRetryAndLoggingEventDecorators()
         {
             var args = new FakeRetryEventArgs(2);
-            await _bus.Publish(args);
+            await _bus.PublishAsync(args);
             Assert.Equal(4, args.NumberOfAttemptsToHandle);
             Assert.Equal(6, _logger.GetMessages(LogLevel.Information).Length);
         }

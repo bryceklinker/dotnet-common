@@ -29,7 +29,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldLogInfoWhenExecutingACommand()
         {
             var args = new FakeCommandArgs();
-            await _bus.Execute(args);
+            await _bus.ExecuteAsync(args);
             
             Assert.True(args.DidExecute);
             Assert.Equal(2, _logger.GetMessages(LogLevel.Information).Length);
@@ -39,7 +39,7 @@ namespace Klinked.Cqrs.Tests
         public async Task ShouldLogInfoWhenExecutingQuery()
         {
             var args = new FakeQueryArgs(new[]{1, 5});
-            var actual  = await _bus.Execute<FakeQueryArgs, int[]>(args);
+            var actual  = await _bus.ExecuteAsync<FakeQueryArgs, int[]>(args);
 
             Assert.Equal(args.Result, actual);
             Assert.Equal(2, _logger.GetMessages(LogLevel.Information).Length);
@@ -50,7 +50,7 @@ namespace Klinked.Cqrs.Tests
         {
             var args = new FakeEventArgs();
 
-            await _bus.Publish(args);
+            await _bus.PublishAsync(args);
             Assert.Equal(2, args.TimesHandled);
             Assert.Equal(4, _logger.GetMessages(LogLevel.Information).Length);
         }
