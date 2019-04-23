@@ -6,6 +6,7 @@ variables:
   
 steps:
 - task: DotNetCoreCLI@2
+  displayName: 'Run Tests'
   inputs:
     command: custom
     custom: test
@@ -13,6 +14,7 @@ steps:
     arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $(buildConfiguration) --logger trx
     
 - task: DotNetCoreCLI@2
+  displayName: 'Package Application'
   inputs:
     command: custom
     custom: pack
@@ -20,6 +22,7 @@ steps:
     enabled: $(IS_PRERELEASE)
 
 - task: DotNetCoreCLI@2
+  displayName: 'Package Application'
   inputs:
     command: custom
     custom: pack
@@ -27,6 +30,7 @@ steps:
     enabled: $(IS_RELEASE)
 
 - task: DotNetCoreCLI@2
+  displayName: 'Generate Coverage Report'
   inputs:
     command: custom
     custom: reportgenerator
@@ -34,6 +38,7 @@ steps:
     workingDirectory: '$(Build.SourcesDirectory)\test\Klinked.Cqrs.Tests'
 
 - task: PublishTestResults@2
+  displayName: 'Publish Test Results'
   inputs:
     testRunner: VSTest
     testResultsFiles: '**\*.trx'
@@ -47,6 +52,7 @@ steps:
 - task: PublishBuildArtifacts@1
   
 - task: NuGetCommand@2
+  displayName: 'Push to NuGet'
   inputs:
     command: push
     nuGetFeedType: external
