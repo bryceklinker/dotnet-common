@@ -11,7 +11,7 @@ steps:
     command: custom
     custom: test
     projects: '**/*.Tests.csproj'
-    arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $(buildConfiguration) --logger trx
+    arguments: /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --configuration $(buildConfiguration) --logger trx /p:Exclude=[xunit.*]*
     
 - task: DotNetCoreCLI@2
   displayName: 'Package Application'
