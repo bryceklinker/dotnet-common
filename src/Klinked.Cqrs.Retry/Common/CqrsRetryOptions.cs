@@ -4,14 +4,14 @@ namespace Klinked.Cqrs.Retry.Common
 {
     internal interface ICqrsRetryOptions
     {
-        RetryPolicy RetryPolicy { get; }
+        AsyncRetryPolicy RetryPolicy { get; }
     }
 
     internal class CqrsRetryOptions : ICqrsRetryOptions
     {
-        public RetryPolicy RetryPolicy { get; }
+        public AsyncRetryPolicy RetryPolicy { get; }
 
-        public CqrsRetryOptions(RetryPolicy retryPolicy)
+        public CqrsRetryOptions(AsyncRetryPolicy retryPolicy)
         {
             RetryPolicy = retryPolicy;
         }

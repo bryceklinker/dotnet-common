@@ -8,7 +8,7 @@ namespace Klinked.Cqrs.Retry.Queries
     internal class RetryQueryHandlerDecorator<TArgs, TResult> : IQueryHandler<TArgs, TResult>
     {
         private readonly IQueryHandler<TArgs, TResult> _handler;
-        private readonly RetryPolicy _retryPolicy;
+        private readonly AsyncRetryPolicy _retryPolicy;
 
         public RetryQueryHandlerDecorator(IQueryHandler<TArgs, TResult> handler, ICqrsRetryOptions options)
         {

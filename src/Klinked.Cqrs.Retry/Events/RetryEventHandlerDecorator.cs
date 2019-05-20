@@ -8,7 +8,7 @@ namespace Klinked.Cqrs.Retry.Events
     internal class RetryEventHandlerDecorator<TArgs> : IEventHandler<TArgs>
     {
         private readonly IEventHandler<TArgs> _handler;
-        private readonly RetryPolicy _retryPolicy;
+        private readonly AsyncRetryPolicy _retryPolicy;
 
         public RetryEventHandlerDecorator(IEventHandler<TArgs> handler, ICqrsRetryOptions options)
         {

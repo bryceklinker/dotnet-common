@@ -8,7 +8,7 @@ namespace Klinked.Cqrs.Retry.Commands
     internal class RetryCommandHandlerDecorator<TArgs> : ICommandHandler<TArgs>
     {
         private readonly ICommandHandler<TArgs> _handler;
-        private readonly RetryPolicy _retryPolicy;
+        private readonly AsyncRetryPolicy _retryPolicy;
 
         public RetryCommandHandlerDecorator(ICommandHandler<TArgs> handler, ICqrsRetryOptions options)
         {

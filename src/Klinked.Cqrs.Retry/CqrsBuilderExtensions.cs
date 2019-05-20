@@ -11,7 +11,7 @@ namespace Klinked.Cqrs.Retry
 {
     public static class CqrsBuilderExtensions
     {
-        private static readonly RetryPolicy DefaultRetryPolicy = Policy.Handle<Exception>().RetryAsync(3);
+        private static readonly AsyncRetryPolicy DefaultRetryPolicy = Policy.Handle<Exception>().RetryAsync(3);
         
         public static ICqrsBusBuilder AddRetry(this ICqrsBusBuilder builder)
         {
@@ -23,7 +23,7 @@ namespace Klinked.Cqrs.Retry
             return builder.AddRetry(DefaultRetryPolicy);
         }
 
-        public static ICqrsBusBuilder AddRetry(this ICqrsBusBuilder builder, RetryPolicy policy)
+        public static ICqrsBusBuilder AddRetry(this ICqrsBusBuilder builder, AsyncRetryPolicy policy)
         {
             return builder
                 .AddSingleton<ICqrsRetryOptions>(new CqrsRetryOptions(policy))
@@ -32,7 +32,7 @@ namespace Klinked.Cqrs.Retry
                 .UseQueryDecorator(typeof(RetryQueryHandlerDecorator<,>));
         }
 
-        public static ICqrsOptionsBuilder AddRetry(this ICqrsOptionsBuilder builder, RetryPolicy policy)
+        public static ICqrsOptionsBuilder AddRetry(this ICqrsOptionsBuilder builder, AsyncRetryPolicy policy)
         {
             return builder
                 .AddSingleton<ICqrsRetryOptions>(new CqrsRetryOptions(policy))
