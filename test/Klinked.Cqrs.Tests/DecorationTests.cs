@@ -17,6 +17,8 @@ namespace Klinked.Cqrs.Tests
 
         public DecorationTests()
         {
+            FakeRetryFailuresEventHandler.TimesHandled = 0;
+            
             var loggerFactory = new FakeLoggerFactory();
             _logger = loggerFactory.Logger;
             
