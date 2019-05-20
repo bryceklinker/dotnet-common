@@ -4,10 +4,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="coverlet.msbuild" Version="2.6.0" />
+        <PackageReference Include="coverlet.msbuild" Version="2.6.1" />
     </ItemGroup>
     
     <ItemGroup>
-        <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.0.0-rc8" />
+        <DotNetCliToolReference Include="dotnet-reportgenerator-cli" Version="4.1.5" />
     </ItemGroup>
 </Project>
