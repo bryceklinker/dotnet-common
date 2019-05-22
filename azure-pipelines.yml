@@ -3,6 +3,7 @@ pool:
   
 variables:
   buildConfiguration: Release
+  IS_RELEASE: false
   
 steps:
 - task: DotNetCoreCLI@2
@@ -27,7 +28,6 @@ steps:
     command: custom
     custom: pack
     arguments: --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-    enabled: $(IS_RELEASE)
 
 - task: DotNetCoreCLI@2
   displayName: 'Generate Coverage Report'
@@ -53,6 +53,7 @@ steps:
   
 - task: NuGetCommand@2
   displayName: 'Push to NuGet'
+  condition: and(succeeded(), eq(variables['IS_RELEASE'], 'true'))
   inputs:
     command: push
     nuGetFeedType: external
